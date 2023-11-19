@@ -1,9 +1,7 @@
 const { Model, DataTypes, Sequelize } = require('sequelize');
-const { USUARIOS_TABLE } = require('./usuarios.model');
+const USUARIOS_TABLE = 'users';
 
-const CATEGORIES_TABLE = 'categories';
-
-const categories_schema = {
+const usuarios_schema = {
   id: {
     allowNull: false,
     autoIncrement: true,
@@ -12,25 +10,21 @@ const categories_schema = {
   },
   name: {
     type: DataTypes.STRING(120),
-    unique: true,
     allowNull: false,
   },
-  description: {
-    type: DataTypes.STRING(250),
+  apellido: {
+    type: DataTypes.STRING(120),
     allowNull: false,
   },
 
   created_by: {
     type: DataTypes.INTEGER,
-    allowNull: false,
     references: {
       model: USUARIOS_TABLE,
-      key: 'id',
+      key: 'id'
     },
   },
-
   created_at: {
-    allowNull: false,
     type: DataTypes.DATE,
     defaultValue: Sequelize.NOW,
   },
@@ -38,7 +32,7 @@ const categories_schema = {
     type: DataTypes.INTEGER,
     references: {
       model: USUARIOS_TABLE,
-      key: 'id',
+      key: 'id'
     },
   },
   updated_at: {
@@ -52,7 +46,7 @@ const categories_schema = {
     type: DataTypes.INTEGER,
     references: {
       model: USUARIOS_TABLE,
-      key: 'id',
+      key: 'id'
     },
   },
   deleted_at: {
@@ -60,7 +54,7 @@ const categories_schema = {
   },
 };
 
-class Categories extends Model {
+class Usuarios extends Model {
   static associate(models) {
     this.belongsTo(models.Usuarios, {
       as: 'creator',
@@ -69,23 +63,23 @@ class Categories extends Model {
 
     this.belongsTo(models.Usuarios, {
       as: 'updator',
-      foreignKey: 'updated_by',
+      foreignKey: 'updated_by'
     });
 
     this.belongsTo(models.Usuarios, {
       as: 'deletor',
-      foreignKey: 'deleted_by',
+      foreignKey: 'deleted_by'
     });
   }
 
   static config(sequelize) {
     return {
       sequelize,
-      tableName: CATEGORIES_TABLE,
-      modelName: 'Categories',
+      tableName: USUARIOS_TABLE,
+      modelName: 'Usuarios',
       timestamps: false,
     };
   }
 }
 
-module.exports = { Categories, categories_schema, CATEGORIES_TABLE };
+module.exports = { Usuarios, usuarios_schema, USUARIOS_TABLE };

@@ -6,8 +6,14 @@ class CategoriesService {
   constructor() {}
 
   async create(data) {
-    const newCategorie = await models.Categories.create(data);
-    return newCategorie;
+    try {
+    //data.created_by = 1;
+    await models.Categories.create(data);
+    const successMessage = 'Category created successfully';
+      return { message: successMessage };
+    } catch (error) {
+      throw boom.badRequest('Error creating category really exist', error);
+    }
   }
 
   async find() {

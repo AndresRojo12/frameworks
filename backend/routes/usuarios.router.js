@@ -1,21 +1,21 @@
 const express = require('express');
-const CategoriesService = require('./../services/categories.service');
+const UsuariosService = require('./../services/usuarios.service');
 const validatorHandler = require('./../middlewares/validator.handler');
 //const capitalizeCase = require('../utils/transform/text');
 
 const {
-  createCategoriesSchema,
-  updateCategoriesSchema,
-  getCategoriesSchema,
-} = require('./../schemas/categories.schema');
+  createUsuariosSchema,
+  updateUsuariosSchema,
+  getUsuariosSchema,
+} = require('./../schemas/usuarios.schema');
 
 const router = express.Router();
-const categorieService = new CategoriesService();
+const userService = new UsuariosService();
 
 router.get('/', async (req, res, next) => {
   try {
-    const categories = await categorieService.find();
-    res.json(categories);
+    const users = await userService.find();
+    res.json(users);
   } catch (error) {
     next(error);
   }
@@ -23,12 +23,12 @@ router.get('/', async (req, res, next) => {
 
 router.get(
   '/:id',
-  validatorHandler(getCategoriesSchema, 'params'),
+  validatorHandler(getUsuariosSchema,  'params'),
   async (req, res, next) => {
     try {
       const { id } = req.params;
-      const categori = await categorieService.findOne(id);
-      res.json(categori);
+      const user = await userService.findOne(id);
+      res.json(user);
     } catch (error) {
       next(error);
     }
@@ -37,30 +37,33 @@ router.get(
 
 router.post(
   '/',
-  validatorHandler(createCategoriesSchema, 'body'),
+  validatorHandler(createUsuariosSchema, 'body'),
   async (req, res, next) => {
     try {
       const body = req.body;
       // const bodyLower = capitalizeCase(body.name);
       // body.name = bodyLower;
-      await categorieService.create(body);
-      res.status(201).json("Categorie created has been successfully")
+      if(!body.name){
+        return res.status(400).json({ error: 'The name field is required' })
+      }
+      const newUser = await userService.create(body);
+      res.status(201).json(newUser);
     } catch (error) {
       next(error);
     }
-  }
+  },
 );
 
 router.patch(
   '/:id',
-  validatorHandler(getCategoriesSchema, 'params'),
-  validatorHandler(updateCategoriesSchema, 'body'),
+  validatorHandler(getUsuariosSchema, 'params'),
+  validatorHandler(updateUsuariosSchema, 'body'),
   async (req, res, next) => {
     try {
       const { id } = req.params;
       const changes = req.body;
-      const updatedCategorie = await categorieService.update(id, changes);
-      res.json(updatedCategorie);
+      const updatedUser = await userService.update(id, changes);
+      res.json(updatedUser);
     } catch (error) {
       next(error);
     }
@@ -69,11 +72,11 @@ router.patch(
 
 router.delete(
   '/:id',
-  validatorHandler(getCategoriesSchema, 'params'),
+  validatorHandler(getUsuariosSchema, 'params'),
   async (req, res, next) => {
     try {
       const { id } = req.params;
-      await categorieService.delete(id);
+      await userService.delete(id);
       res.sendStatus(204);
     } catch (error) {
       next(error);
