@@ -162,9 +162,9 @@ const updatePage = (newPage) => {
 const redirectCategoriaCreate = () => {
   router.push("/category/create");
 };
-const redirectCategoriaGrid = () => {
-  router.push("/categorias");
-};
+// const redirectCategoriaGrid = () => {
+//   router.push("/category");
+// };
 
 const editaCategoria = (Categoris) => {
   if (Categoris && Categoris.id) {

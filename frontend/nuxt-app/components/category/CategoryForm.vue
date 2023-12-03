@@ -13,13 +13,13 @@
             ></v-text-field>
 					</v-col>
 					<v-col cols="12" sm="6">
-            <v-text-field
+            <v-textarea
               v-model="datos.categorias.description"
               label="Description"
               outlined
               dense
               required
-            ></v-text-field>
+            ></v-textarea>
           </v-col>
 					<v-btn
           type="submit"
