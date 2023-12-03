@@ -53,7 +53,7 @@ const crearUser = async () => {
 	try {
 		const payusuarios = {
 			name: datos.value.usuarios.name,
-			description: datos.value.usuarios.apellido,
+			apellidoe: datos.value.usuarios.apellido,
       created_by: datos.value.usuarios.created_by,
 
 
