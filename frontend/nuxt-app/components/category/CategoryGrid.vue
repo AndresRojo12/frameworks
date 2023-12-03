@@ -45,22 +45,31 @@
         <td>{{ Categoris.description }}</td>
         <td>{{Categoris.created_at}}</td>
 				<td>
-					<v-icon @click="editProductCategory(productCategory) ">
+					<v-icon @click="editaCategoria(Categoris) ">
             mdi-pencil
           </v-icon>
+					<CategoryDelete
+					@delete-category="deleteCategory"
+					:editar-categoria="Categoris">
+					</CategoryDelete>
 				</td>
-					<!-- <td>
-						<v-icon @click="editProductCategory(productCategory) ">
-							mdi-pencil
-						</v-icon>
-						<ProductCategoryDeleteForm
-						@delete-product-category="deleteItemProductCategory"
-						:edited-product-category="productCategory">
-					</ProductCategoryDeleteForm>
-				</td> -->
     	</tr>
 		</tbody>
 	</v-table>
+	<v-dialog v-model="showEditDialog" width="800" height="auto">
+		<v-card>
+        <v-row>
+          <v-col offset="11" cols="1">
+          </v-col>
+        </v-row>
+	<CategoryUpdate
+    :editar-categoria="editarCategoria"
+    @update="editeCategoria"
+    @cancel="cancelEdit"
+  ></CategoryUpdate> 
+</v-card>
+
+	</v-dialog>	
 </div>
     
 </template>
@@ -68,8 +77,11 @@
 <script setup>
 const CONFIG = useRuntimeConfig();
 import { ref } from "vue";
-import Swal from "sweetalert2";
+//import Swal from "sweetalert2";
 const CategoryList = ref([]);
+const editarCategoria = ref({id: null, name: "" });
+const showEditDialog = ref(false);
+
 
 const getCategorias = async () => {
 	try {
@@ -87,8 +99,47 @@ const getCategorias = async () => {
 	}
 }
 
+const editaCategoria = (Categoris) => {
+  if (Categoris && Categoris.id) {
+    editarCategoria.value = { ...Categoris };
+    showEditDialog.value = true;
+  }else{
+    console.error("no valido");
+  }
+};
+
+const cancelEdit = () => {
+  showEditDialog.value = false;
+  editarCategoria.value = { id: null, name: "" };
+};
+
 onMounted(async () => {
   await nextTick();
   await getCategorias();
 });
+const deleteCategory = (isDeleteCategoria, idCategoria) => {
+	if (isDeleteCategoria) {
+		const index = CategoryList.value.findIndex(
+			(item) => item.id === idCategoria
+		);
+	CategoryList.value.splice(index, 1);
+	}
+}
+
+const editeCategoria = (updatedData, idCategory, name) => {
+// console.log('first', updatedData)
+// console.log('name', name)
+if (updatedData) {
+  const index = CategoryList.value.findIndex(
+    (item) => item.id === idCategory
+    
+  );
+    CategoryList.value[index].name = name
+    console.log('ingresando categiria list',CategoryList.value[index].name )
+  
+}
+showEditDialog.value = false;
+
+}
+
 </script>

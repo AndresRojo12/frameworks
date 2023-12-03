@@ -1,7 +1,6 @@
 <template>
-    <CategoryUpdate></CategoryUpdate>
+    <CategoryDelete></CategoryDelete>
   </template>
   <script setup>
-
 
   </script>
