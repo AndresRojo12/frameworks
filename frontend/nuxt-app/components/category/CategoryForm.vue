@@ -1,5 +1,6 @@
 <template>
 	<v-app>
+	<H1>Crear Categorias</H1>
     <container>
        <v-form @submit.prevent="crearCategory" class="text-left">
 					<v-col cols="12" sm="6">

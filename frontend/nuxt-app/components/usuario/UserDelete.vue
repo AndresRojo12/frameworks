@@ -40,10 +40,8 @@ const eliminarUsuario = async () => {
             confirmButtonText: "Accept",
           });
 
-          this.$emit("deleteUser", true, editarUsuario.value.id);
-          // Emitir el evento personalizado 'specie-deleted'
-
-          // Elimina el elemento de la lista petSpecie
+          emit("deleteUser", true, editarUsuario.value.id);
+          
         } else {
           await Swal.fire({
             title: "Ops!",

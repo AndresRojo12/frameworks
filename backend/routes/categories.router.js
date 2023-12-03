@@ -14,7 +14,19 @@ const categorieService = new CategoriesService();
 
 router.get('/', async (req, res, next) => {
   try {
-    const categories = await categorieService.find();
+    const page = parseInt(req.query.page) || 1
+    const perPage = parseInt(req.query.perPage) || 10;
+    let filters = {};
+    if (req.query.name) {
+      filters = { name: req.query.name };
+    }
+    if (req.query.description) {
+      filters = { description: req.query.description };
+    }
+    if (req.query.created_at) {
+      filters={created_at: req.query.created_at}
+    }
+    const categories = await categorieService.find(page,perPage,filters);
     res.json(categories);
   } catch (error) {
     next(error);

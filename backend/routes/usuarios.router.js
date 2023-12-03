@@ -14,7 +14,19 @@ const userService = new UsuariosService();
 
 router.get('/', async (req, res, next) => {
   try {
-    const users = await userService.find();
+    const page = parseInt(req.query.page) || 1
+      const perPage = parseInt(req.query.perPage) || 10;
+    let filters = {};
+    if (req.query.name) {
+      filters = { name: req.query.name };
+    }
+    if (req.query.apellido) {
+      filters = { apellido: req.query.apellido };
+    }
+    if (req.query.created_at) {
+      filters={created_at: req.query.created_at}
+    }
+    const users = await userService.find(page,perPage,filters);
     res.json(users);
   } catch (error) {
     next(error);

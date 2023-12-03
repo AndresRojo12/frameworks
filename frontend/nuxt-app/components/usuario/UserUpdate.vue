@@ -37,7 +37,7 @@ const actualizarUsuario = async () => {
   if (editarUsuario.value && editarUsuario.value.id) {
     try {
       const { data, error } = await useFetch(
-        `${CONFIG.public.API_BASE_URL}usuario/${editarUsuario.value.id}`,
+        `${CONFIG.public.API_BASE_URL}usuarios/${editarUsuario.value.id}`,
         {
           method: "PATCH",
           body: {

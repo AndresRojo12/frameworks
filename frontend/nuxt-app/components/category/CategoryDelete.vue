@@ -41,9 +41,6 @@ const eliminarCategoria = async () => {
           });
 
           this.$emit("deleteCategory", true, editarCategoria.value.id);
-          // Emitir el evento personalizado 'specie-deleted'
-
-          // Elimina el elemento de la lista petSpecie
         } else {
           await Swal.fire({
             title: "Ops!",

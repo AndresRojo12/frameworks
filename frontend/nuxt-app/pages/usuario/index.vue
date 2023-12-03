@@ -1,6 +1,6 @@
 <template>
     <v-container>
-     <UserGrid></UserGrid>
+     <UsuarioUserGrid></UsuarioUserGrid>
     </v-container>
   </template>
   <script setup>

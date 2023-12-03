@@ -1,5 +1,6 @@
 <template>
 	<v-app>
+		<H1>Crear Usuarios</H1>
     <container>
        <v-form @submit.prevent="crearUser" class="text-left">
 					<v-col cols="12" sm="6">
@@ -53,7 +54,7 @@ const crearUser = async () => {
 	try {
 		const payusuarios = {
 			name: datos.value.usuarios.name,
-			apellidoe: datos.value.usuarios.apellido,
+			apellido: datos.value.usuarios.apellido,
       created_by: datos.value.usuarios.created_by,
 
 

@@ -1,7 +1,6 @@
 <template>
-    <v-container>
-     <UserForm></UserForm>
-    </v-container>
-  </template>
-  <script setup>
-  </script>
+  <v-container> 
+    <usuario-user-form></usuario-user-form>
+  </v-container>
+</template>
+<script setup></script>

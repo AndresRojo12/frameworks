@@ -1,5 +1,5 @@
 <template>
-    <UserDelete></UserDelete>
+    <UsuarioUserDelete></UsuarioUserDelete>
   </template>
   <script setup>
 

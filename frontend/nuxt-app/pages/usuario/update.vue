@@ -1,7 +1,4 @@
 <template>
-    <UserUpdate></UserUpdate>
-  </template>
-  <script setup>
-
-
-  </script>
+  <UsuarioUserUpdate></UsuarioUserUpdate>
+</template>
+<script setup></script>
