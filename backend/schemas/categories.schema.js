@@ -8,13 +8,13 @@ const created_by = Joi.number().integer();
 const createCategoriesSchema = Joi.object({
   name: name.required(),
   description: description.required(),
-  created_by: created_by.required(),
+  created_by: created_by,
 });
 
 const updateCategoriesSchema = Joi.object({
-  name: name.required(),
-  description: description.required(),
-  created_by: created_by.required(),
+  name: name,
+  description: description,
+  created_by: created_by,
 
 });
 

@@ -7,7 +7,7 @@ class CategoriesService {
 
   async create(data) {
     try {
-    //data.created_by = 1;
+    data.created_by = 1;
     await models.Categories.create(data);
     const successMessage = 'Category created successfully';
       return { message: successMessage };
@@ -38,9 +38,19 @@ class CategoriesService {
   }
 
   async delete(id) {
-    const categor = await this.findOne(id);
-    await categor.update({ deleted: true, deleted_at: new Date() });
-    return { id };
+    try {
+      const categori = await this.findOne(id);
+
+      await categori.update({ deleted: true, deleted_at: new Date() });
+      if (categori.deleted) {
+        return {
+          message: 'categori was previously removed.',
+        };
+      }
+      return { id, message: 'categori deleted successfully'};
+    } catch (error) {
+      throw boom.badRequest('Error deleting categori', error);
+    }
   }
 
 }
